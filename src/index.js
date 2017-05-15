@@ -15,14 +15,31 @@ module.exports = class Status {
   }
 
   status(cb:Function) {
-    this.getEC2((err:Object, ec2result: Array<instanceType>) => {
-      this.getCloudwatch(ec2result, (cwError:Object, cwResult: Array<instanceType>) => {
-        this.getELB((elbError:Object, elbResult:Array<elbServiceObject>) => {
-          const services = sortServices({ ec2: cwResult, elb: elbResult });
-          cb(null, services);
+    if (cb === undefined) {
+      return new Promise((resolve, reject) => {
+        this.getEC2((err:Object, ec2result: Array<instanceType>) => {
+          this.getCloudwatch(ec2result, (cwError:Object, cwResult: Array<instanceType>) => {
+            this.getELB((elbError:Object, elbResult:Array<elbServiceObject>) => {
+              const services = sortServices({ ec2: cwResult, elb: elbResult });
+              if (err) {
+                reject(err);
+              } else {
+                resolve(services);
+              }
+            });
+          });
         });
       });
-    });
+    } else {
+      this.getEC2((err:Object, ec2result: Array<instanceType>) => {
+        this.getCloudwatch(ec2result, (cwError:Object, cwResult: Array<instanceType>) => {
+          this.getELB((elbError:Object, elbResult:Array<elbServiceObject>) => {
+            const services = sortServices({ ec2: cwResult, elb: elbResult });
+            cb(null, services);
+          });
+        });
+      });
+    }
   }
 
   getEC2(cb: Function) {
@@ -38,6 +55,18 @@ module.exports = class Status {
   }
 
   getSQS(queueUrl: string, cb: Function) {
-    getSQS(this.config, queueUrl, cb);
+    if (cb !== undefined) {
+      getSQS(this.config, queueUrl, cb);
+    } else {
+      return new Promise((resolve, reject) => {
+        if (queueUrl === undefined) {
+          reject(new Error('No Queue URL Found'));
+        }
+        getSQS(this.config, queueUrl, (err, res) => {
+          if (err) { reject(err); }
+          resolve(res);
+        });
+      });
+    }
   }
 };
