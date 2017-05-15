@@ -20,7 +20,8 @@
   "homepage": "https://github.com/danm/stack-status#readme",
   "scripts": {
     "test": "mocha",
-    "build": "babel src/ -d lib/"
+    "build": "babel src/ -d lib/",
+    "bump": "npm version patch -m 'version bump' && git push && npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
