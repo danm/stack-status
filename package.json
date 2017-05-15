@@ -1,0 +1,42 @@
+{
+  "name": "stack-status",
+  "version": "0.0.1",
+  "description": "A Node app to check up on your AWS Stack.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danm/stack-status.git"
+  },
+  "keywords": [
+    "AWS",
+    "cloudwatch",
+    "ec2"
+  ],
+  "author": "Daniel Morrison <daniel.morrison@bbc.co.uk>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danm/stack-status/issues"
+  },
+  "homepage": "https://github.com/danm/stack-status#readme",
+  "scripts": {
+    "test": "mocha",
+    "build": "babel src/ -d lib/"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-flowtype": "^2.32.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "flow-bin": "^0.46.0",
+    "mocha": "^3.3.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.50.0"
+  }
+}
