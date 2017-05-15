@@ -1,6 +1,6 @@
 {
   "name": "stack-status",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Node app to check up on your AWS Stack.",
   "main": "index.js",
   "repository": {
